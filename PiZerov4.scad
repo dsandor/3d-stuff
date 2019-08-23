@@ -7,7 +7,7 @@ build = 3;
 //camera 0=none, 1=internal, 2=external
 camera = 0;
 //GPIO 0=no cut_out, 1=top cut_out, 2 side cut out
-gpio = 2;
+gpio = 1;
 wall = 2.0;
 hdmi_recess = 1;
 corner = 3.0;
@@ -52,9 +52,9 @@ board_thick = 1.35;
 connector_thick = 3.2;
 screw_depth = 8.0;
 screw_radius = 1.3;
-gpio_centre_x = 32.5;
+gpio_centre_x = 20.5;
 gpio_centre_y = 3.5;
-gpio_length = 51.5;
+gpio_length = 51.5 / 2;
 gpio_width = 6;
 gpio_recess_h = 1.2;
 corner_size = 2.4;
