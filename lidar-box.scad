@@ -24,6 +24,12 @@ difference() {
 
 	color("orange") translate([6,-(10.35/2),10-6.2]) cube([20,10.35,5.2]); // cube( [ 8, 10.35, 5.2 ]);
 
+	// cutout for SD card
+	color("yellow") translate([-7.95,-42.2,6 /* vertical on wall*/]) cube([16, 10, 6]);
+
+	// micro usb / power hole
+	color("black") translate([13, 14, 6]) cube([12,12, 6.5]);
+
 }
 
 difference() {
