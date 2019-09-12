@@ -1,4 +1,4 @@
-4nut_height = 6;
+nut_height = 6;
 include <tripod-nut.scad>;
 include <pizero-module.scad>;
 

@@ -2,7 +2,7 @@ include <./MCAD/shapes.scad>;
 
 inch = 25.4;
 
-wall_height = 2 * inch;
+wall_height = 1 * inch;
 wall_thickness = 1/4 * inch;
 arena_radius = (4.5 * inch) / 2;
 arena_diameter = arena_radius * 2;
