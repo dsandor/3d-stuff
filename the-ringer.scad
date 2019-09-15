@@ -9,7 +9,10 @@ renderLid = 1;
 
 
 if (renderLid) {
-	enclosureLid();
+	difference() {
+		enclosureLid();
+		color("green") translate([22, 30, -3]) cube([6.15, 6.15, 8]);
+	}
 }
 
 if (renderLedHoles) {
