@@ -1,11 +1,15 @@
-/*
-difference() {
-  color("red") scale([1.7,1.1]) cylinder(r = 40, h=3);
-  translate([0,0, 2]) maple();
-}
-*/
+print_mode = "buckle"; // buckle = white buckle, maple = red maple leaf
 
-maple();
+$fn = 100;
+
+if (print_mode == "buckle") {
+  difference() {
+    color("red") scale([1.7,1.1]) cylinder(r = 40, h=3);
+    translate([0,0, 2]) maple();
+  }
+} else {
+  maple();
+}
 
 module maple() {
   translate([-5, -5, 0]) import("./maple.stl");
