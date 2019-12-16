@@ -5,7 +5,7 @@ difference() {
 }
 */
 
-maple();
+  maple();
 
 module maple() {
   translate([-5, -5, 0]) import("./maple.stl");
