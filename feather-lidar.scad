@@ -1,51 +1,64 @@
-import ("./libraries/rounded-corners.scad");
-
-
 caseInnerWidth = 70.6;
 caseInnerLength = 50.5;
 caseThickness = 2;
 caseHeight = 27;
+showCase = false;
+showLid = true;
 
-difference() {
-	cube([caseInnerWidth + (2 * caseThickness), caseInnerLength + (2 * caseThickness), caseHeight + (2 * caseThickness)]);
-	
-	translate([caseThickness, caseThickness, caseThickness]) cube([caseInnerWidth, caseInnerLength, caseHeight + caseThickness + .01]);
+if (showLid) {
+	difference() {
+		color("white") cube([caseInnerWidth + (4 * caseThickness), caseInnerLength + (4 * caseThickness), caseThickness + 7]);
+		
+		translate([caseThickness - 0.1, caseThickness - 0.1, caseThickness])
+		color("blue") cube([caseInnerWidth + (2 * caseThickness) + 0.2, caseInnerLength + (2 * caseThickness) + 0.2, caseThickness + 7.1]);
 
-	// hole in side of case for USB to feather board
-	translate([(caseInnerWidth) + caseThickness - 4, (caseInnerLength / 2) - (caseThickness * 2), caseThickness]) color("SlateBlue") cube([8, 12, 8]);
-
-	// cutout for sensor
-	translate([caseInnerWidth/2 - (26.1 / 2) + caseThickness, caseInnerLength + caseThickness + 4.8, caseThickness]) rotate([90, 0, 0]) distSensorBB(renderBoard = false);
+	}
 }
 
-// mounts for feather board
-translate([(caseInnerWidth) + caseThickness - (50.9), (caseInnerLength/2) + caseThickness - (22.9/2)]) featherBoard();
+if (showCase) {
+	difference() {
+		cube([caseInnerWidth + (2 * caseThickness), caseInnerLength + (2 * caseThickness), caseHeight + (2 * caseThickness)]);
+		
+		translate([caseThickness, caseThickness, caseThickness]) cube([caseInnerWidth, caseInnerLength, caseHeight + caseThickness + .01]);
 
-// screw mounts for lid
-color("DeepPink") lidMount();
+		// hole in side of case for USB to feather board
+		translate([(caseInnerWidth) + caseThickness - 4, (caseInnerLength / 2) - (caseThickness * 2), caseThickness]) color("SlateBlue") cube([8, 12, 8]);
 
-// add in mounts for sensor	
-translate([caseInnerWidth/2 - (26.1 / 2) + caseThickness, caseInnerLength + caseThickness + 4.8, caseThickness]) rotate([90, 0, 0]) distSensorBB(renderBoard = false, renderSensorCutoutBox = false);
+		// cutout for sensor
+		translate([caseInnerWidth/2 - (26.1 / 2) + caseThickness - 3.5, caseInnerLength + caseThickness + 4.8, caseThickness]) rotate([90, 0, 0]) distSensorBB(renderBoard = false);
+	}
+
+	// mounts for feather board
+	translate([(caseInnerWidth) + caseThickness - (50.9), (caseInnerLength/2) + caseThickness - (20/2)]) featherBoard();
+
+	// screw mounts for lid
+	color("DeepPink") lidMount();
+
+	// add in mounts for sensor	
+	translate([caseInnerWidth/2 - (26.1 / 2) + caseThickness, caseInnerLength + caseThickness + 4.8, caseThickness]) rotate([90, 0, 0]) distSensorBB(renderBoard = false, renderSensorCutoutBox = false);
+}
 
 module lidMount() {
+	mountRadius = 2.54;
+	holeRadius = 0.65;
 	// origin
-	translate([caseThickness - (1.7/2), caseThickness - (1.7/2), (caseHeight - 1 - caseThickness)]) screwMount(screwMountHeight = 5);
+	translate([caseThickness - (mountRadius/2), caseThickness - (mountRadius/2), (caseHeight - 1 - caseThickness)]) screwMount(screwMountRadius = mountRadius, screwHoleRadius = holeRadius, screwMountHeight = 5);
 
 	// bottom right
-	translate([- (1.7/2) + caseInnerWidth, caseThickness - (1.7/2), (caseHeight - 1 - caseThickness)]) screwMount(screwMountHeight = 5);
+	translate([- (mountRadius/2) + caseInnerWidth, caseThickness - (mountRadius/2), (caseHeight - 1 - caseThickness)]) screwMount(screwMountRadius = mountRadius, screwHoleRadius = holeRadius, screwMountHeight = 5);
 
 	// origin
-	translate([caseThickness - (1.7/2), - (1.7/2) + caseInnerLength, (caseHeight - 1 - caseThickness)]) screwMount(screwMountHeight = 5);
+	translate([caseThickness - (mountRadius/2), - (mountRadius/2) + caseInnerLength, (caseHeight - 1 - caseThickness)]) screwMount(screwMountRadius = mountRadius, screwHoleRadius = holeRadius, screwMountHeight = 5);
 
 	// origin
-	translate([- (1.7/2) + caseInnerWidth, - (1.7/2) + caseInnerLength, (caseHeight - 1 - caseThickness)]) screwMount(screwMountHeight = 5);
+	translate([- (mountRadius/2) + caseInnerWidth, - (mountRadius/2) + caseInnerLength, (caseHeight - 1 - caseThickness)]) screwMount(screwMountRadius = mountRadius, screwHoleRadius = holeRadius, screwMountHeight = 5);
 }
 
 module featherBoard(boardThickness = 2, screwMountHeight = 2.5) {
 	shortSide = 22.9;
 	longSide = 50.9;
-	screwMountRadius = 1.7;
-	screwHoleRadius = 0.5;
+	screwMountRadius = 2.54;
+	screwHoleRadius = 0.65;
 	//screwMountHeight = 2.5;
 	//boardThickness = 2;
 
@@ -53,15 +66,15 @@ module featherBoard(boardThickness = 2, screwMountHeight = 2.5) {
 
 	// closest to origin corner.
 	// bottom left
-	translate([screwMountRadius * 0.5, (screwMountRadius * .5), 0]) screwMount(screwMountHeight = 2.5 + 2);
+	translate([(screwMountRadius * 0.5)  -1.15, (screwMountRadius * .5) - 2.20, 0]) screwMount(screwMountRadius = screwMountRadius, screwHoleRadius = screwHoleRadius, screwMountHeight = 2.5 + 2);
 		// top left
-	translate([(screwMountRadius * .5), shortSide - (screwMountRadius * 2.5), 0]) screwMount(screwMountHeight = 2.5 + 2);
+	color("blue") translate([(screwMountRadius * .5) -1.15, shortSide - (screwMountRadius * 2.5), 0]) screwMount(screwMountRadius = screwMountRadius, screwHoleRadius = screwHoleRadius, screwMountHeight = 2.5 + 2);
 
 	// top right
-	translate([longSide - (screwMountRadius * 2.5), shortSide - (screwMountRadius * 2.5), 0]) screwMount(screwMountHeight = 2.5 + 2);
+	translate([longSide - (screwMountRadius * 2.5), shortSide - (screwMountRadius * 2.5), 0]) screwMount(screwMountRadius = screwMountRadius, screwHoleRadius = screwHoleRadius, screwMountHeight = 2.5 + 2);
 
 	// bottom right
-	translate([longSide - (screwMountRadius * 2.5), (screwMountRadius * .5), 0]) screwMount(screwMountHeight = 2.5 + 2);
+	translate([longSide - (screwMountRadius * 2.5), (screwMountRadius * .5) - 2.20, 0]) screwMount(screwMountRadius = screwMountRadius, screwHoleRadius = screwHoleRadius, screwMountHeight = 2.5 + 2);
 }
 
 module screwMount(screwMountRadius = 1.7, screwMountHeight = 2.5, screwHoleRadius = 0.5) {
@@ -84,7 +97,7 @@ module distSensorBB(boardX = 26.1, boardY = 26.1, boardThickness = 4.8, renderBo
 	}
 
 	if (renderSensorCutoutBox) {
-		translate([boardX/2, boardY/2, 0]) cube([7, 4, 8]);
+		translate([boardX/2, boardY/2 - 2, 0]) cube([7, 6, 8]);
 	}
 
 	//translate([0, 0, boardThickness]) screwMount(screwMountRadius = 2.54);

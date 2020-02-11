@@ -5,7 +5,7 @@ disp_cutout_width = 50.32;
 disp_cutout_height = 19.2;
 box_height = 18;
 
-what_to_render = "box"; // box or lid
+what_to_render = "lid"; // box or lid
 
 if (what_to_render == "box") {
   difference() {
@@ -19,5 +19,15 @@ if (what_to_render == "box") {
     // display cutout
     color("red") translate([1.4, 0, -(box_height/2)]) cube([disp_cutout_width, disp_cutout_height, box_height + 1], center = true);
   }
+}
+
+if (what_to_render == "lid") {
+    // outer cube
+    cube([display_width + (2 * wall_thickness), display_height + (2 * wall_thickness), wall_thickness], center = true);
+    // inner cube
+    difference() {
+      translate([0, 0, wall_thickness]) cube([display_width, display_height, (3 * wall_thickness)], center = true);
+      color("lightblue") translate([0, 0, 2 * wall_thickness]) cube([display_width - (2 * wall_thickness), display_height - (2 * wall_thickness), (3 * wall_thickness)], center = true);
+    }
 }
 
