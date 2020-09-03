@@ -6,7 +6,8 @@
                 "/Users/dsandor/Library/Arduino15/packages/esp8266/tools/**",
                 "/Users/dsandor/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/**",
                 "/Users/dsandor/Library/Arduino15/packages/esp8266/hardware/esp8266/2.6.3/**",
-                "/Users/dsandor/Library/Arduino15/packages/esp8266/hardware/esp8266/2.7.1/**"
+                "/Users/dsandor/Library/Arduino15/packages/esp8266/hardware/esp8266/2.7.1/**",
+                "/Users/dsandor/Library/Arduino15/packages/esp8266/hardware/esp8266/2.7.3/**"
             ],
             "forcedInclude": [],
             "macFrameworkPath": [

@@ -5,8 +5,8 @@ nodemcu long/wide 48.5mm
 
 */
 
-max_board_width = 48.5;
-board_thickness = 1.8;
+max_board_width = 50;
+board_thickness = 2;
 wall_thickness = 2;
 l = max_board_width + (wall_thickness * 2);
 //w = 12;
@@ -23,5 +23,5 @@ module draw_slot(number, draw_wire_notch) {
 }
 
 draw_slot(0, true);
-draw_slot(1);
+draw_slot(1, true);
 draw_slot(2);
